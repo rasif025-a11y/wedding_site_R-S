@@ -260,7 +260,7 @@
 
   var audioUrl = window.location.href;
   var baseDir = audioUrl.substring(0, audioUrl.lastIndexOf('/') + 1);
-  loadMusic(baseDir + 'music.mp3');
+  loadMusic(baseDir + 'Music.mp3');
 
   bgMusic.addEventListener('error', function () {
     console.log('Audio error:', bgMusic.error ? bgMusic.error.message : 'unknown');
