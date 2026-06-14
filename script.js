@@ -226,15 +226,30 @@
   const musicToggle = document.getElementById('musicToggle');
   let isPlaying = false;
 
-  bgMusic.src = 'music.mp3';
   bgMusic.volume = 0.04;
 
+  function loadMusic(src) {
+    bgMusic.src = src;
+    bgMusic.load();
+  }
+
   function startMusic() {
+    if (bgMusic.readyState < 2) {
+      bgMusic.addEventListener('canplaythrough', function playWhenReady() {
+        bgMusic.removeEventListener('canplaythrough', playWhenReady);
+        doPlay();
+      });
+      return;
+    }
+    doPlay();
+  }
+
+  function doPlay() {
     bgMusic.play().then(function () {
       isPlaying = true;
       musicToggle.classList.add('playing');
     }).catch(function () {
-      musicToggle.classList.add('disabled');
+      musicToggle.classList.remove('disabled');
     });
   }
 
@@ -253,18 +268,20 @@
   }
 
   musicToggle.addEventListener('click', toggleMusic);
+  loadMusic('music.mp3');
+
+  bgMusic.addEventListener('error', function () {
+    console.log('Audio error:', bgMusic.error ? bgMusic.error.message : 'unknown');
+  });
 
   window.addEventListener('load', function () {
-    setTimeout(startMusic, 300);
+    setTimeout(startMusic, 1000);
   });
 
   document.addEventListener('click', function firstPlay(e) {
     if (e.target.closest('.music-toggle') || e.target.closest('.admin-panel') || e.target.closest('.admin-overlay')) return;
-    if (!isPlaying && bgMusic.src && bgMusic.src !== window.location.href) {
-      bgMusic.play().then(function () {
-        isPlaying = true;
-        musicToggle.classList.add('playing');
-      }).catch(function () {});
+    if (!isPlaying && bgMusic.src && bgMusic.src !== window.location.href && bgMusic.src !== '') {
+      doPlay();
     }
     document.removeEventListener('click', firstPlay);
   }, { once: true });
