@@ -716,7 +716,15 @@ body {
   .countdown-num { font-size: 2.5rem; }
   .event-card { min-width: 100%; }
   .rsvp-buttons { flex-direction: column; }
-  .couple-grid { gap: 30px; }
+  .couple-grid {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  .couple-photo { width: 100%; }
+  .couple-photo:nth-child(1) { text-align: left; padding-left: 10%; }
+  .couple-photo:nth-child(3) { text-align: right; padding-right: 10%; }
+  .couple-hearts { margin: 5px 0; font-size: 2rem; }
   .couple-photo img { width: 160px; height: 160px; }
 
   .gallery-grid { grid-template-columns: 1fr; gap: 10px; }
