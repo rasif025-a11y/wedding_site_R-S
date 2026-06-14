@@ -233,23 +233,12 @@
     bgMusic.load();
   }
 
-  function startMusic() {
-    if (bgMusic.readyState < 2) {
-      bgMusic.addEventListener('canplaythrough', function playWhenReady() {
-        bgMusic.removeEventListener('canplaythrough', playWhenReady);
-        doPlay();
-      });
-      return;
-    }
-    doPlay();
-  }
-
   function doPlay() {
     bgMusic.play().then(function () {
       isPlaying = true;
       musicToggle.classList.add('playing');
-    }).catch(function () {
-      musicToggle.classList.remove('disabled');
+    }).catch(function (err) {
+      console.log('Play failed:', err);
     });
   }
 
@@ -263,25 +252,29 @@
     if (isPlaying) {
       stopMusic();
     } else {
-      startMusic();
+      doPlay();
     }
   }
 
   musicToggle.addEventListener('click', toggleMusic);
 
-  loadMusic('Music.mp3');
+  var audioUrl = window.location.href;
+  var baseDir = audioUrl.substring(0, audioUrl.lastIndexOf('/') + 1);
+  loadMusic(baseDir + 'music.mp3');
 
   bgMusic.addEventListener('error', function () {
     console.log('Audio error:', bgMusic.error ? bgMusic.error.message : 'unknown');
+    musicToggle.classList.add('disabled');
   });
 
-  window.addEventListener('load', function () {
-    setTimeout(startMusic, 1000);
-  });
+  bgMusic.addEventListener('canplaythrough', function () {
+    musicToggle.classList.remove('disabled');
+    doPlay();
+  }, { once: true });
 
   document.addEventListener('click', function firstPlay(e) {
     if (e.target.closest('.music-toggle') || e.target.closest('.admin-panel') || e.target.closest('.admin-overlay')) return;
-    if (!isPlaying && bgMusic.src && bgMusic.src !== window.location.href && bgMusic.src !== '') {
+    if (!isPlaying && bgMusic.src) {
       doPlay();
     }
     document.removeEventListener('click', firstPlay);
