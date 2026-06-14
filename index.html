@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Никах-Туй | Приглашение</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div id="app">
+    <section class="hero">
+      <div class="hero-overlay"></div>
+      <div class="hero-content">
+        <h1 class="hero-title">Никах-Туй</h1>
+        <div class="hero-names">
+          <span class="name groom">Расиф</span>
+          <span class="ampersand">&amp;</span>
+          <span class="name bride">Сельби</span>
+        </div>
+        <p class="hero-date">31 июля 2026</p>
+      </div>
+    </section>
+
+    <section class="section invitation">
+      <div class="container">
+        <p class="bismillah">﷽</p>
+        <p class="invite-text">
+          Дорогие наши, с огромной радостью приглашаем Вас<br>
+          разделить с нами наше торжество — Никах-Туй.
+        </p>
+        <div class="divider"></div>
+      </div>
+    </section>
+
+    <section class="section details">
+      <div class="container">
+        <div class="events">
+          <div class="event-card">
+            <div class="event-icon">🤲🎉</div>
+            <h3>Никах-Туй</h3>
+            <p class="event-time">15:00</p>
+            <p class="event-desc">Церемония бракосочетания и праздничный банкет</p>
+            <a class="event-location map-link" href="https://yandex.ru/maps/?text=Татарская+Каргала+Почтовая+15а1" target="_blank" rel="noopener">📍 с. Татарская Каргала, ул. Почтовая 15а/1</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section couple">
+      <div class="container">
+        <div class="couple-grid">
+          <div class="couple-photo">
+            <img src="https://i.ibb.co/5xGKnhqs/image.png" alt="Расиф">
+            <span class="photo-label">Расиф</span>
+          </div>
+          <div class="couple-hearts">&amp;</div>
+          <div class="couple-photo">
+            <img src="https://i.ibb.co/7JGPkgLn/image.jpg" alt="Сельби">
+            <span class="photo-label">Сельби</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section countdown-section">
+      <div class="container">
+        <h2 class="section-title light">До события осталось</h2>
+        <div class="countdown" id="countdown">
+          <div class="countdown-item">
+            <span class="countdown-num" id="days">00</span>
+            <span class="countdown-label">дней</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="hours">00</span>
+            <span class="countdown-label">часов</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="minutes">00</span>
+            <span class="countdown-label">минут</span>
+          </div>
+          <div class="countdown-item">
+            <span class="countdown-num" id="seconds">00</span>
+            <span class="countdown-label">секунд</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section rsvp">
+      <div class="container">
+        <h2 class="section-title">Ждём вас!</h2>
+        <p class="rsvp-subtitle">Пожалуйста, подтвердите своё присутствие</p>
+        <form class="rsvp-form" id="rsvpForm">
+          <input type="text" placeholder="Ваше имя" required>
+          <div class="rsvp-buttons">
+            <button type="button" class="rsvp-btn rsvp-yes" data-value="yes">Буду с радостью!</button>
+            <button type="button" class="rsvp-btn rsvp-no" data-value="no">К сожалению, не смогу</button>
+          </div>
+          <input type="hidden" name="status" id="statusInput" required>
+          <p class="rsvp-hint" id="rsvpHint">Выберите вариант выше</p>
+          <button type="submit">Отправить</button>
+        </form>
+        <p class="rsvp-thanks" id="thanksMsg">Спасибо! До встречи!</p>
+      </div>
+    </section>
+
+    <footer class="footer">
+      <p>С любовью, семьи жениха и невесты</p>
+      <span class="admin-trigger" id="adminTrigger">⚙️</span>
+    </footer>
+  </div>
+
+  <div class="admin-panel" id="adminPanel">
+    <div class="admin-inner">
+      <button class="admin-close" id="adminClose">&times;</button>
+      <h2 class="admin-title">Список гостей</h2>
+      <table class="admin-table">
+        <thead>
+          <tr>
+            <th>Имя</th>
+            <th>Статус</th>
+            <th>Дата</th>
+          </tr>
+        </thead>
+        <tbody id="adminBody"></tbody>
+      </table>
+      <div class="admin-actions">
+        <span class="admin-count" id="adminCount">Всего: 0</span>
+        <button class="admin-btn" id="exportXml">Скачать XML</button>
+        <button class="admin-btn admin-btn-clear" id="clearData">Очистить</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="admin-overlay" id="adminOverlay"></div>
+  </div>
+
+  <audio id="bgMusic" loop preload="auto" autoplay>
+    <source src="" type="audio/mpeg">
+  </audio>
+
+  <div class="music-toggle" id="musicToggle">
+    <span class="music-icon">♪</span>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
