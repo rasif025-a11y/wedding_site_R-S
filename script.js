@@ -268,7 +268,8 @@
   }
 
   musicToggle.addEventListener('click', toggleMusic);
-  loadMusic('music.mp3');
+
+  loadMusic('Music.mp3');
 
   bgMusic.addEventListener('error', function () {
     console.log('Audio error:', bgMusic.error ? bgMusic.error.message : 'unknown');
