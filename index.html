@@ -4,6 +4,15 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Никах-Туй | Приглашение</title>
+  <meta property="og:title" content="Никах-Туй — Расиф & Сельби">
+  <meta property="og:description" content="Приглашаем вас разделить с нами радость нашего торжества 31 июля 2026 года">
+  <meta property="og:image" content="https://i.pinimg.com/originals/d8/c0/63/d8c0638d0189630bd27f124047d5c43f.jpg?nii=t">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://ваш-домен.github.io/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Никах-Туй — Расиф & Сельби">
+  <meta name="twitter:description" content="Приглашаем вас разделить с нами радость нашего торжества 31 июля 2026 года">
+  <meta name="twitter:image" content="https://i.pinimg.com/originals/d8/c0/63/d8c0638d0189630bd27f124047d5c43f.jpg?nii=t">
   <link rel="stylesheet" href="style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Cormorant+Garamond:wght@300;400;600&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
@@ -21,6 +30,11 @@
           <span class="name bride">Сельби</span>
         </div>
         <p class="hero-date">31 июля 2026</p>
+      </div>
+      <div class="scroll-hint" aria-hidden="true">
+        <svg class="scroll-arrow" viewBox="0 0 24 24" width="28" height="28" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 5v14M19 12l-7 7-7-7"/>
+        </svg>
       </div>
     </section>
 
@@ -43,7 +57,14 @@
             <h3>Никах-Туй</h3>
             <p class="event-time">15:00</p>
             <p class="event-desc">Церемония бракосочетания и праздничный банкет</p>
-            <a class="event-location map-link" href="https://yandex.ru/maps/?text=Татарская+Каргала+Почтовая+15а1" target="_blank" rel="noopener">📍 с. Татарская Каргала, ул. Почтовая 15а/1</a>
+            <a class="event-location map-link" href="https://yandex.ru/maps/?text=Татарская+Каргала+Почтовая+15а1" target="_blank" rel="noopener">
+              <span>📍 с. Татарская Каргала, ул. Почтовая 15а/1</span>
+              <svg class="tap-hint" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </a>
+            <p class="map-hint">Нажмите, чтобы открыть карту</p>
           </div>
         </div>
       </div>
@@ -102,6 +123,7 @@
           <input type="hidden" name="status" id="statusInput" required>
           <p class="rsvp-hint" id="rsvpHint">Выберите вариант выше</p>
           <button type="submit">Отправить</button>
+          <p class="rsvp-note">Передумали? Просто отправьте форму ещё раз — обновим ответ.</p>
         </form>
         <p class="rsvp-thanks" id="thanksMsg">Спасибо! До встречи!</p>
       </div>
@@ -130,6 +152,7 @@
       <div class="admin-actions">
         <span class="admin-count" id="adminCount">Всего: 0</span>
         <button class="admin-btn" id="exportXml">Скачать XML</button>
+        <button class="admin-btn" id="exportCsv">Скачать CSV</button>
         <button class="admin-btn admin-btn-clear" id="clearData">Очистить</button>
       </div>
     </div>
@@ -146,7 +169,7 @@
     <span class="music-icon">♪</span>
   </div>
 
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="script.js"></script>
 </body>
 </html>
-
