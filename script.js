@@ -1,6 +1,11 @@
 (function () {
   'use strict';
 
+  // --- Supabase Config ---
+  const SUPABASE_URL = 'https://szhbifqlehwhzbujthil.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Y0X6ecwcRptSaG5RwdsSbg_hK0eZlJP';
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
   // --- Countdown Timer ---
   const WEDDING_DATE = new Date('2026-07-31T15:00:00').getTime();
   const daysEl = document.getElementById('days');
@@ -45,7 +50,19 @@
   const form = document.getElementById('rsvpForm');
   const thanksMsg = document.getElementById('thanksMsg');
 
-  function saveGuest(data) {
+  async function saveGuest(data) {
+    const status = data.status === 'yes' ? 'Буду' : 'Не смогу';
+    const { error } = await supabase
+      .from('guests')
+      .insert({ name: data.name, status: status });
+    if (error) {
+      console.error('Supabase insert error:', error);
+      // fallback to localStorage
+      saveGuestLocal(data);
+    }
+  }
+
+  function saveGuestLocal(data) {
     const guests = JSON.parse(localStorage.getItem('nikahGuests') || '[]');
     guests.push({
       name: data.name,
@@ -111,14 +128,30 @@
   const adminBody = document.getElementById('adminBody');
   const adminCount = document.getElementById('adminCount');
   const exportBtn = document.getElementById('exportXml');
+  const exportCsvBtn = document.getElementById('exportCsv');
   const clearBtn = document.getElementById('clearData');
 
-  function getGuests() {
-    return JSON.parse(localStorage.getItem('nikahGuests') || '[]');
+  let guestsCache = [];
+  let channel = null;
+
+  async function fetchGuests() {
+    const { data, error } = await supabase
+      .from('guests')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) {
+      console.error('Supabase fetch error:', error);
+      return JSON.parse(localStorage.getItem('nikahGuests') || '[]');
+    }
+    return data.map(g => ({
+      name: g.name,
+      status: g.status,
+      date: new Date(g.created_at).toLocaleString('ru-RU')
+    }));
   }
 
-  function renderGuests() {
-    const guests = getGuests();
+  function renderGuests(guests) {
+    guestsCache = guests;
     adminBody.innerHTML = '';
 
     if (guests.length === 0) {
@@ -141,9 +174,26 @@
   }
 
   function openAdmin() {
-    renderGuests();
+    loadAndRender();
     adminPanel.classList.add('open');
     adminOverlay.classList.add('open');
+  }
+
+  async function loadAndRender() {
+    const guests = await fetchGuests();
+    renderGuests(guests);
+    subscribeRealtime();
+  }
+
+  function subscribeRealtime() {
+    if (channel) channel.unsubscribe();
+    channel = supabase
+      .channel('guests_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'guests' }, async () => {
+        const guests = await fetchGuests();
+        renderGuests(guests);
+      })
+      .subscribe();
   }
 
   function closeAdmin() {
@@ -169,7 +219,7 @@
 
   // --- Export XML ---
   exportBtn.addEventListener('click', function () {
-    const guests = getGuests();
+    const guests = guestsCache;
     let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<guests>\n';
 
     guests.forEach(function (g) {
@@ -193,12 +243,43 @@
     URL.revokeObjectURL(url);
   });
 
-  // --- Clear Data ---
-  clearBtn.addEventListener('click', function () {
-    if (confirm('Очистить все данные о гостях?')) {
-      localStorage.removeItem('nikahGuests');
-      renderGuests();
+  // --- Export CSV ---
+  exportCsvBtn.addEventListener('click', function () {
+    const guests = guestsCache;
+    if (guests.length === 0) {
+      alert('Нет данных для экспорта');
+      return;
     }
+    // CSV заголовки
+    var csv = '\uFEFF' + 'Имя,Статус,Дата\n';
+    guests.forEach(function (g) {
+      var name = '"' + g.name.replace(/"/g, '""') + '"';
+      var status = '"' + g.status + '"';
+      var date = '"' + g.date + '"';
+      csv += name + ',' + status + ',' + date + '\n';
+    });
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'guests.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // --- Clear Data ---
+  clearBtn.addEventListener('click', async function () {
+    if (!confirm('Очистить все данные о гостях? Это действие необратимо.')) return;
+    const { error } = await supabase.from('guests').delete().neq('id', 0);
+    if (error) {
+      console.error('Delete error:', error);
+      alert('Ошибка при удалении: ' + error.message);
+      return;
+    }
+    guestsCache = [];
+    renderGuests([]);
   });
 
   // --- Scroll Reveal (repeatable) ---
