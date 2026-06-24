@@ -111,20 +111,24 @@ body {
   bottom: 40px;
   left: 50%;
   transform: translateX(-50%);
-  color: #f7f6f2;
-  opacity: 0.6;
-  animation: scrollBounce 2s ease-in-out infinite;
+  color: #fff;
+  opacity: 1;
+  animation: scrollPulse 1.5s ease-in-out infinite;
   pointer-events: none;
   z-index: 10;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
 }
 
 .scroll-arrow {
   display: block;
+  width: 28px;
+  height: 28px;
+  stroke-width: 2.5;
 }
 
-@keyframes scrollBounce {
-  0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.5; }
-  50% { transform: translateX(-50%) translateY(10px); opacity: 0.8; }
+@keyframes scrollPulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
+  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
 }
 
 /* Invitation */
@@ -133,11 +137,10 @@ body {
   background: #f7f6f2;
 }
 
-.bismillah {
-  font-size: 3rem;
-  margin-bottom: 30px;
-  color: #7a8c5d;
-  line-height: 1;
+.invite-icon {
+  font-size: 2.5rem;
+  margin-bottom: 20px;
+  opacity: 0.8;
 }
 
 .invite-text {
@@ -669,10 +672,10 @@ body {
 
 /* Scroll Reveal */
 .hero-title,
-.hero-names,
-.hero-date,
-.bismillah,
-.invite-text,
+  .hero-names,
+  .hero-date,
+  .invite-icon,
+  .invite-text,
 .event-card,
 .section-title,
 .couple-photo,
@@ -685,10 +688,10 @@ body {
 }
 
 .hero-title.visible,
-.hero-names.visible,
-.hero-date.visible,
-.bismillah.visible,
-.invite-text.visible,
+  .hero-names.visible,
+  .hero-date.visible,
+  .invite-icon.visible,
+  .invite-text.visible,
 .event-card.visible,
 .section-title.visible,
 .couple-photo.visible,
@@ -703,7 +706,7 @@ body {
 .hero-names { transition-delay: 0.2s; }
 .hero-date { transition-delay: 0.4s; }
 
-.bismillah { transition-delay: 0s; }
+.invite-icon { transition-delay: 0s; }
 .invite-text { transition-delay: 0.15s; }
 
 .couple-photo:nth-child(1) { transition-delay: 0s; }
