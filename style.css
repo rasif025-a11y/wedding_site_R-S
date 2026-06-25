@@ -1,909 +1,492 @@
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
-
-body {
-  font-family: 'Montserrat', sans-serif;
-  color: #2c3126;
-  background: #f7f6f2;
-  line-height: 1.6;
-}
-
-.container {
-  max-width: 920px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-
-.section {
-  padding: 80px 0;
-}
-
-.section-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.4rem;
-  text-align: center;
-  margin-bottom: 40px;
-  color: #2c3126;
-  font-weight: 400;
-  letter-spacing: 2px;
-}
-
-.section-title.light {
-  color: #f7f6f2;
-}
-
-.divider {
-  width: 60px;
-  height: 1px;
-  background: #b5c4a3;
-  margin: 50px auto 0;
-}
-
-/* Hero */
-.hero {
-  position: relative;
-  height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  background: url('https://i.pinimg.com/736x/49/b2/e5/49b2e5a6e12cc558bc4e4f424d1d11d7.jpg') center 58%/cover no-repeat;
-}
-
-.hero-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(180deg, rgba(44,49,38,0.7) 0%, rgba(44,49,38,0.35) 50%, rgba(44,49,38,0.8) 100%);
-}
-
-.hero-content {
-  position: relative;
-  z-index: 1;
-  color: #f7f6f2;
-  padding: 20px;
-  padding-top: calc(160px + 20vh);
-}
-
-.hero-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 5rem;
-  font-weight: 400;
-  letter-spacing: 8px;
-  margin-bottom: 30px;
-  text-shadow: 2px 2px 20px rgba(0,0,0,0.3);
-}
-
-.hero-names {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 25px;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-}
-
-.name {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 2rem;
-  font-weight: 300;
-  letter-spacing: 3px;
-}
-
-.ampersand {
-  font-family: 'Playfair Display', serif;
-  font-size: 2.8rem;
-  color: #b5c4a3;
-}
-
-.hero-date {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  letter-spacing: 6px;
-  text-transform: uppercase;
-  opacity: 0.85;
-}
-
-.scroll-hint {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  color: #fff;
-  opacity: 1;
-  animation: scrollPulse 1.5s ease-in-out infinite;
-  pointer-events: none;
-  z-index: 10;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
-}
-
-.scroll-arrow {
-  display: block;
-  width: 28px;
-  height: 28px;
-  stroke-width: 2.5;
-}
-
-@keyframes scrollPulse {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) translateY(0); }
-  50% { opacity: 1; transform: translateX(-50%) translateY(8px); }
-}
-
-/* Invitation */
-.invitation {
-  text-align: center;
-  background: #f7f6f2;
-}
-
-.invite-icon {
-  font-size: 2.5rem;
-  margin-bottom: 20px;
-  opacity: 0.8;
-}
-
-.invite-text {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.5rem;
-  color: #555;
-  font-weight: 300;
-  line-height: 1.8;
-}
-
-.invite-box-shadow: 0 4px 20px rgba(74,91,58,0.1);
-}
-
-.invite-box {
-  background: #fff;
-  border: 2px solid #d5e0c5;
-  border-radius: 16px;
-  padding: 28px 32px;
-  margin: 20px auto 0;
-  max-width: 580px;
-  box-shadow: 0 4px 20px rgba(74,91,58,0.08);
-  position: relative;
-}
-
-.invite-box::before {
-  content: '';
-  position: absolute;
-  top: -2px;
-  left: -2px;
-  right: -2px;
-  bottom: -2px;
-  border-radius: 18px;
-  background: linear-gradient(135deg, #7a8c5d, #4a5b3a);
-  z-index: -1;
-  opacity: 0.15;
-}
-
-/* Calendar Widget */
-.calendar-widget {
-  max-width: 300px;
-  margin: 30px auto 0;
-  background: #fff;
-  border: 1px solid #d5e0c5;
-  border-radius: 12px;
-  padding: 18px 14px;
-  box-shadow: 0 4px 15px rgba(74,91,58,0.08);
-  font-family: 'Montserrat', sans-serif;
-}
-
-.cal-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 12px;
-  font-weight: 600;
-  color: #2c3126;
-  font-size: 1rem;
-}
-
-.cal-weekdays {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  text-align: center;
-  font-size: 0.7rem;
-  text-transform: uppercase;
-  color: #888;
-  letter-spacing: 0.5px;
-  margin-bottom: 8px;
-}
-
-.cal-days {
-  display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  gap: 6px;
-}
-
-.cal-days span {
-  aspect-ratio: 1;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.85rem;
-  color: #555;
-  border-radius: 50%;
-  transition: all 0.2s;
-  font-weight: 500;
-}
-
-.cal-days span:empty {
-  pointer-events: none;
-}
-
-.cal-days span.cal-today {
-  background: #4a5b3a;
-  color: #fff;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(74,91,58,0.4);
-}
-
-.cal-days span.cal-wedding {
-  background: #c0392b;
-  color: #fff;
-  font-weight: 700;
-  box-shadow: 0 2px 8px rgba(192,57,43,0.4);
-}
-
-.cal-days span:hover:not(:empty):not(.cal-today):not(.cal-wedding) {
-  background: #f1f3ec;
-}
-
-/* Couple */
-.couple {
-  background: #f1f3ec;
-  text-align: center;
-}
-
-.couple-grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 50px;
-  flex-wrap: wrap;
-}
-
-.couple-photo {
-  text-align: center;
-}
-
-.couple-photo img {
-  width: 220px;
-  height: 220px;
-  object-fit: cover;
-  border-radius: 50%;
-  border: 4px solid #d5e0c5;
-  box-shadow: 0 8px 25px rgba(74,91,58,0.15);
-  transition: transform 0.4s;
-}
-
-.couple-photo:hover img {
-  transform: scale(1.03);
-}
-
-.couple-hearts {
-  font-family: 'Playfair Display', serif;
-  font-size: 3rem;
-  color: #7a8c5d;
-}
-
-.photo-label {
-  display: block;
-  margin-top: 15px;
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.3rem;
-  letter-spacing: 2px;
-  color: #4a5b3a;
-}
-
-/* Gallery */
-.gallery {
-  background: #f7f6f2;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-}
-
-.gallery-item {
-  overflow: hidden;
-  border-radius: 6px;
-}
-
-.gallery-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  transition: transform 0.4s;
-}
-
-.gallery-item:hover img {
-  transform: scale(1.05);
-}
-
-.gallery-item.wide {
-  grid-column: 1 / -1;
-}
-
-.gallery-item.tall {
-  grid-row: span 2;
-}
-
-/* Details */
-.details {
-  background: #f1f3ec;
-}
-
-.events {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.event-card {
-  flex: 1;
-  min-width: 260px;
-  max-width: 340px;
-  text-align: center;
-  padding: 40px 25px;
-  border: 1px solid #d5e0c5;
-  border-radius: 6px;
-  background: #f7f6f2;
-  transition: transform 0.3s, box-shadow 0.3s;
-}
-
-.event-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 12px 30px rgba(74,91,58,0.12);
-}
-
-.event-icon {
-  font-size: 2.5rem;
-  margin-bottom: 15px;
-}
-
-.event-card h3 {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  font-weight: 400;
-  margin-bottom: 10px;
-  color: #2c3126;
-}
-
-.event-time {
-  font-size: 1.1rem;
-  font-weight: 500;
-  color: #7a8c5d;
-  margin-bottom: 8px;
-}
-
-.event-desc {
-  font-size: 0.9rem;
-  color: #777;
-  margin-bottom: 5px;
-}
-
-.event-location {
-  font-size: 0.95rem;
-  color: #555;
-  font-weight: 500;
-  margin-top: 10px;
-}
-
-.map-link {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  text-decoration: none;
-  color: #555;
-  border-bottom: 1px dashed #b5c4a3;
-  transition: color 0.3s, border-color 0.3s;
-}
-
-.map-link:hover {
-  color: #4a5b3a;
-  border-bottom-color: #4a5b3a;
-}
-
-.tap-hint {
-  flex-shrink: 0;
-  opacity: 0.5;
-  transition: opacity 0.3s, transform 0.3s;
-  animation: tapPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes tapPulse {
-  0%, 100% { transform: scale(1); opacity: 0.4; }
-  50% { transform: scale(1.15); opacity: 0.7; }
-}
-
-.map-link:hover .tap-hint {
-  opacity: 0.8;
-}
-
-.map-hint {
-  font-size: 0.75rem;
-  color: #999;
-  margin-top: 6px;
-  font-style: italic;
-}
-
-/* Countdown */
-.countdown-section {
-  background: linear-gradient(135deg, #2c3126 0%, #4a5b3a 100%);
-  text-align: center;
-}
-
-.countdown {
-  display: flex;
-  justify-content: center;
-  gap: 50px;
-  flex-wrap: wrap;
-}
-
-.countdown-item {
-  text-align: center;
-}
-
-.countdown-num {
-  display: block;
-  font-family: 'Playfair Display', serif;
-  font-size: 3.5rem;
-  font-weight: 400;
-  color: #b5c4a3;
-  line-height: 1;
-}
-
-.countdown-label {
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: #bbb;
-  margin-top: 8px;
-  display: block;
-}
-
-/* RSVP */
-.rsvp {
-  text-align: center;
-  background: #f1f3ec;
-}
-
-.rsvp-subtitle {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.2rem;
-  color: #888;
-  margin-bottom: 40px;
-}
-
-.rsvp-form {
-  max-width: 440px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
-}
-
-.rsvp-form input {
-  padding: 16px 20px;
-  border: 1px solid #d5e0c5;
-  border-radius: 6px;
-  font-size: 0.95rem;
-  font-family: 'Montserrat', sans-serif;
-  background: #f7f6f2;
-  outline: none;
-  transition: border-color 0.3s;
-}
-
-.rsvp-form input:focus {
-  border-color: #7a8c5d;
-}
-
-.rsvp-buttons {
-  display: flex;
-  gap: 12px;
-}
-
-.rsvp-btn {
-  flex: 1;
-  padding: 16px;
-  border: 1px solid #d5e0c5;
-  border-radius: 6px;
-  font-size: 0.9rem;
-  font-family: 'Montserrat', sans-serif;
-  background: #f7f6f2;
-  color: #555;
-  cursor: pointer;
-  transition: all 0.3s;
-}
-
-.rsvp-btn:hover {
-  border-color: #7a8c5d;
-  color: #2c3126;
-}
-
-.rsvp-btn.active {
-  border-color: #7a8c5d;
-  background: #7a8c5d;
-  color: #f7f6f2;
-}
-
-.rsvp-btn.rsvp-yes.active {
-  background: #4a5b3a;
-  border-color: #4a5b3a;
-}
-
-.rsvp-btn.rsvp-no.active {
-  background: #b88686;
-  border-color: #b88686;
-}
-
-.rsvp-form button[type="submit"] {
-  padding: 16px;
-  background: #4a5b3a;
-  color: #f7f6f2;
-  border: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  font-family: 'Montserrat', sans-serif;
-  font-weight: 500;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-
-.rsvp-form button[type="submit"]:hover {
-  background: #7a8c5d;
-}
-
-.rsvp-hint {
-  font-size: 0.8rem;
-  color: #b88686;
-  margin-top: -8px;
-  display: none;
-}
-
-.rsvp-hint:empty {
-  display: none;
-}
-
-.rsvp-hint:not(:empty) {
-  display: block;
-}
-
-.rsvp-thanks {
-  font-family: 'Cormorant Garamond', serif;
-  font-size: 1.6rem;
-  color: #7a8c5d;
-  margin-top: 30px;
-  display: none;
-}
-
-.rsvp-thanks.show {
-  display: block;
-}
-
-.rsvp-note {
-  font-size: 0.75rem;
-  color: #999;
-  margin-top: 10px;
-  font-style: italic;
-  text-align: center;
-}
-
-/* Footer */
-.footer {
-  text-align: center;
-  padding: 40px 20px;
-  background: #2c3126;
-  color: #aaa;
-  font-size: 0.9rem;
-  letter-spacing: 1px;
-  position: relative;
-}
-
-.admin-trigger {
-  position: absolute;
-  right: 12px;
-  bottom: 8px;
-  font-size: 0.7rem;
-  cursor: pointer;
-  opacity: 0.25;
-  transition: opacity 0.3s;
-  user-select: none;
-}
-
-.admin-trigger:hover {
-  opacity: 0.7;
-}
-
-/* Admin Panel */
-.admin-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(0,0,0,0.5);
-  z-index: 1000;
-}
-
-.admin-overlay.open {
-  display: block;
-}
-
-.admin-panel {
-  display: none;
-  position: fixed;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 1001;
-  width: 90%;
-  max-width: 600px;
-  max-height: 80vh;
-  background: #f7f6f2;
-  border-radius: 8px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-  display: flex;
-  flex-direction: column;
-}
-
-.admin-panel.open {
-  display: flex;
-}
-
-.admin-inner {
-  padding: 30px;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-  overflow: hidden;
-}
-
-.admin-close {
-  position: absolute;
-  top: 10px;
-  right: 15px;
-  font-size: 1.8rem;
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: #888;
-  transition: color 0.2s;
-}
-
-.admin-close:hover {
-  color: #2c3126;
-}
-
-.admin-title {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.6rem;
-  color: #2c3126;
-  margin-bottom: 20px;
-  font-weight: 400;
-  flex-shrink: 0;
-}
-
-.admin-table-wrapper {
-  flex: 1;
-  overflow-y: auto;
-  margin: 0 -30px;
-  padding: 0 30px;
-  margin-bottom: 20px;
-}
-
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 0;
-}
-
-.admin-table thead th {
-  position: sticky;
-  top: 0;
-  background: #f7f6f2;
-  z-index: 1;
-}
-
-.admin-table th {
-  text-align: left;
-  padding: 10px 12px;
-  font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #888;
-  border-bottom: 1px solid #d5e0c5;
-  font-weight: 500;
-}
-
-.admin-table td {
-  padding: 10px 12px;
-  font-size: 0.95rem;
-  color: #2c3126;
-  border-bottom: 1px solid #e8ede0;
-}
-
-.admin-table tbody tr:hover {
-  background: #eef3e8;
-}
-
-.admin-empty {
-  text-align: center;
-  color: #aaa !important;
-  padding: 30px !important;
-}
-
-.status-yes {
-  color: #4a5b3a;
-  font-weight: 500;
-}
-
-.status-no {
-  color: #b88686;
-}
-
-.admin-actions {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 10px;
-  padding-top: 10px;
-  border-top: 1px solid #d5e0c5;
-}
-
-.admin-count {
-  font-size: 0.85rem;
-  color: #888;
-}
-
-.admin-btn {
-  padding: 8px 18px;
-  border: 1px solid #7a8c5d;
-  background: transparent;
-  color: #4a5b3a;
-  border-radius: 4px;
-  font-size: 0.85rem;
-  font-family: 'Montserrat', sans-serif;
-  cursor: pointer;
-  transition: background 0.3s, color 0.3s;
-}
-
-.admin-btn:hover {
-  background: #7a8c5d;
-  color: #f7f6f2;
-}
-
-.admin-btn-clear {
-  border-color: #c88;
-  color: #a66;
-}
-
-.admin-btn-clear:hover {
-  background: #c88;
-  color: #fff;
-}
-
-/* Scroll Reveal */
-.hero-title,
-  .hero-names,
-  .hero-date,
-  .invite-icon,
-  .invite-text,
-.event-card,
-.section-title,
-.couple-photo,
-.countdown-item,
-.rsvp-form,
-.rsvp-subtitle {
-  opacity: 0;
-  transform: translateY(40px);
-  transition: opacity 0.7s ease, transform 0.7s ease;
-}
-
-.hero-title.visible,
-  .hero-names.visible,
-  .hero-date.visible,
-  .invite-icon.visible,
-  .invite-text.visible,
-.event-card.visible,
-.section-title.visible,
-.couple-photo.visible,
-.countdown-item.visible,
-.rsvp-form.visible,
-.rsvp-subtitle.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-title { transition-delay: 0s; }
-.hero-names { transition-delay: 0.2s; }
-.hero-date { transition-delay: 0.4s; }
-
-.invite-icon { transition-delay: 0s; }
-.invite-text { transition-delay: 0.15s; }
-
-.couple-photo:nth-child(1) { transition-delay: 0s; }
-.couple-photo:nth-child(3) { transition-delay: 0.15s; }
-
-.countdown-item:nth-child(1) { transition-delay: 0s; }
-.countdown-item:nth-child(2) { transition-delay: 0.1s; }
-.countdown-item:nth-child(3) { transition-delay: 0.2s; }
-.countdown-item:nth-child(4) { transition-delay: 0.3s; }
-
-/* Music Toggle */
-.music-toggle {
-  position: fixed;
-  bottom: 80px;
-  right: 20px;
-  z-index: 999;
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: #4a5b3a;
-  color: #f7f6f2;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  font-size: 1.3rem;
-  box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-  transition: background 0.3s, transform 0.3s;
-  user-select: none;
-}
-
-.music-toggle:hover {
-  background: #7a8c5d;
-  transform: scale(1.05);
-}
-
-.music-toggle.disabled {
-  opacity: 0.5;
-  cursor: not-allowed;
-}
-
-.music-icon {
-  display: block;
-  line-height: 1;
-  animation: none;
-}
-
-.music-toggle.playing .music-icon {
-  animation: musicPulse 1.2s ease-in-out infinite;
-}
-
-@keyframes musicPulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.2); }
-}
-
-/* Responsive */
-@media (max-width: 600px) {
-  .hero-title { font-size: 3rem; letter-spacing: 4px; }
-  .name { font-size: 1.4rem; }
-  .ampersand { font-size: 2rem; }
-  .section-title { font-size: 1.8rem; }
-  .countdown { gap: 30px; }
-  .countdown-num { font-size: 2.5rem; }
-  .event-card { min-width: 100%; }
-  .rsvp-buttons { flex-direction: column; }
-  .couple-grid {
-    flex-direction: column;
-    align-items: center;
-    gap: 8px;
+(function () {
+  'use strict';
+
+  // --- Supabase Config ---
+  const SUPABASE_URL = 'https://szhbifqlehwhzbujthil.supabase.co';
+  const SUPABASE_KEY = 'sb_publishable_Y0X6ecwcRptSaG5RwdsSbg_hK0eZlJP';
+  const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+  // Test connection on load
+  supabase.from('guests').select('count', { count: 'exact', head: true })
+    .then(({ count, error }) => {
+      if (error) console.warn('Supabase connection test failed:', error.message);
+      else console.log('Supabase connected, guests count:', count);
+    });
+
+  // --- Countdown Timer ---
+  const WEDDING_DATE = new Date('2026-07-31T15:00:00').getTime();
+  const daysEl = document.getElementById('days');
+  const hoursEl = document.getElementById('hours');
+  const minutesEl = document.getElementById('minutes');
+  const secondsEl = document.getElementById('seconds');
+
+  function pad(num) {
+    return String(num).padStart(2, '0');
   }
-  .couple-photo { width: auto; }
-  .couple-photo:nth-child(1) { align-self: flex-start; margin-left: 5%; }
-  .couple-photo:nth-child(3) { align-self: flex-end; margin-right: 5%; }
-  .couple-hearts { font-size: 2rem; margin: 4px 0; }
-  .couple-photo img { width: 160px; height: 160px; }
 
-  .scroll-hint { display: none; }
+  function updateCountdown() {
+    const now = Date.now();
+    let diff = WEDDING_DATE - now;
+
+    if (diff <= 0) {
+      daysEl.textContent = '00';
+      hoursEl.textContent = '00';
+      minutesEl.textContent = '00';
+      secondsEl.textContent = '00';
+      return;
+    }
+
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    diff -= days * (1000 * 60 * 60 * 24);
+    const hours = Math.floor(diff / (1000 * 60 * 60));
+    diff -= hours * (1000 * 60 * 60);
+    const minutes = Math.floor(diff / (1000 * 60));
+    diff -= minutes * (1000 * 60);
+    const seconds = Math.floor(diff / 1000);
+
+    daysEl.textContent = pad(days);
+    hoursEl.textContent = pad(hours);
+    minutesEl.textContent = pad(minutes);
+    secondsEl.textContent = pad(seconds);
+  }
+
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // --- Calendar Widget ---
+  function renderCalendar() {
+    const container = document.getElementById('calDays');
+    if (!container) return;
+
+    const today = new Date();
+    const wedding = new Date(2026, 6, 31); // July 31, 2026 (month is 0-indexed)
+    const year = 2026;
+    const month = 6; // July
+
+    const firstDay = new Date(year, month, 1).getDay(); // 0=Sun, 1=Mon...
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Adjust for Monday start (1=Mon, 7=Sun)
+    const startOffset = (firstDay + 6) % 7;
+
+    let html = '';
+    // Empty cells before 1st
+    for (let i = 0; i < startOffset; i++) {
+      html += '<span></span>';
+    }
+    // Days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
+      const isWedding = d === 31;
+      let cls = '';
+      if (isWedding) cls = 'cal-wedding';
+      else if (isToday) cls = 'cal-today';
+      html += '<span class="' + cls + '">' + d + '</span>';
+    }
+    container.innerHTML = html;
+  }
+
+  renderCalendar();
+
+  // --- RSVP Form ---
+  const form = document.getElementById('rsvpForm');
+  const thanksMsg = document.getElementById('thanksMsg');
+
+  async function saveGuest(data) {
+    const status = data.status === 'yes' ? 'Буду' : 'Не смогу';
+    const { error } = await supabase
+      .from('guests')
+      .insert({ name: data.name, status: status });
+    if (error) {
+      console.error('Supabase insert error:', error);
+      alert('Ошибка Supabase: ' + error.message + '\nПроверьте консоль (F12)');
+      saveGuestLocal(data);
+    } else {
+      console.log('Saved to Supabase:', data.name, status);
+    }
+  }
+
+  function saveGuestLocal(data) {
+    const guests = JSON.parse(localStorage.getItem('nikahGuests') || '[]');
+    guests.push({
+      name: data.name,
+      status: data.status === 'yes' ? 'Буду' : 'Не смогу',
+      date: new Date().toLocaleString('ru-RU'),
+    });
+    localStorage.setItem('nikahGuests', JSON.stringify(guests));
+  }
+
+  const rsvpBtns = document.querySelectorAll('.rsvp-btn');
+  const statusInput = document.getElementById('statusInput');
+  const rsvpHint = document.getElementById('rsvpHint');
+
+  rsvpBtns.forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      rsvpBtns.forEach(function (b) { b.classList.remove('active'); });
+      btn.classList.add('active');
+      statusInput.value = btn.dataset.value;
+      rsvpHint.textContent = '';
+    });
+  });
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    const nameInput = form.querySelector('input[type="text"]');
+    const name = nameInput.value.trim();
+
+    if (!name) {
+      rsvpHint.textContent = 'Пожалуйста, введите ваше имя';
+      nameInput.focus();
+      return;
+    }
+
+    if (!statusInput.value) {
+      rsvpHint.textContent = 'Пожалуйста, выберите вариант ответа';
+      return;
+    }
+
+    const data = { name: name, status: statusInput.value };
+
+    saveGuest(data);
+    form.reset();
+    statusInput.value = '';
+    rsvpBtns.forEach(function (b) { b.classList.remove('active'); });
+    form.style.display = 'none';
+    thanksMsg.classList.add('show');
+
+    if (data.status === 'yes') {
+      fireConfetti();
+    }
+  });
+
+  // --- Confetti animation ---
+  function fireConfetti() {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width = window.innerWidth;
+    const H = canvas.height = window.innerHeight;
+
+    const pieces = [];
+    const colors = ['#4a5b3a', '#7a8c5d', '#b5c4a3', '#d5e0c5', '#f7f6f2', '#e8d5b7'];
+
+    for (let i = 0; i < 180; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 12 + 6;
+      pieces.push({
+        x: W / 2,
+        y: H / 2,
+        r: Math.random() * 5 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 8,
+        gravity: 0.25,
+        alpha: 1,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 10
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      let alive = 0;
+      pieces.forEach(p => {
+        if (p.alpha > 0) {
+          alive++;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.alpha -= 0.006;
+          p.rotation += p.rotationSpeed;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      });
+      if (alive > 0) requestAnimationFrame(draw);
+      else { canvas.remove(); }
+    }
+    requestAnimationFrame(draw);
+  }
+
+  // --- Map Card Click ---
+  const mapLink = document.querySelector('.map-link');
+  const eventCard = document.querySelector('.event-card');
+
+  if (mapLink && eventCard) {
+    eventCard.addEventListener('click', function (e) {
+      if (e.target.tagName !== 'A') {
+        mapLink.click();
+      }
+    });
+    eventCard.style.cursor = 'pointer';
+  }
+
+  // --- Admin Panel ---
+  const ADMIN_PASSWORD = 'Сельби123';
+  const adminTrigger = document.getElementById('adminTrigger');
+  const adminPanel = document.getElementById('adminPanel');
+  const adminOverlay = document.getElementById('adminOverlay');
+  const adminClose = document.getElementById('adminClose');
+  const adminBody = document.getElementById('adminBody');
+  const adminCount = document.getElementById('adminCount');
+  const exportBtn = document.getElementById('exportXml');
+  const exportCsvBtn = document.getElementById('exportCsv');
+  const clearBtn = document.getElementById('clearData');
+
+  let guestsCache = [];
+  let channel = null;
+
+  async function fetchGuests() {
+    const { data, error } = await supabase
+      .from('guests')
+      .select('*')
+      .order('created_at', { ascending: false });
+    if (error) {
+      console.error('Supabase fetch error:', error);
+      return JSON.parse(localStorage.getItem('nikahGuests') || '[]');
+    }
+    return data.map(g => ({
+      name: g.name,
+      status: g.status,
+      date: new Date(g.created_at).toLocaleString('ru-RU')
+    }));
+  }
+
+  function renderGuests(guests) {
+    guestsCache = guests;
+    adminBody.innerHTML = '';
+
+    if (guests.length === 0) {
+      adminBody.innerHTML = '<tr><td colspan="3" class="admin-empty">Пока никто не ответил</td></tr>';
+      adminCount.textContent = 'Всего: 0';
+      return;
+    }
+
+    guests.forEach(function (g) {
+      const row = document.createElement('tr');
+      const statusClass = g.status === 'Буду' ? 'status-yes' : 'status-no';
+      row.innerHTML =
+        '<td>' + g.name + '</td>' +
+        '<td class="' + statusClass + '">' + g.status + '</td>' +
+        '<td>' + g.date + '</td>';
+      adminBody.appendChild(row);
+    });
+
+    adminCount.textContent = 'Всего: ' + guests.length;
+  }
+
+  function openAdmin() {
+    loadAndRender();
+    adminPanel.classList.add('open');
+    adminOverlay.classList.add('open');
+  }
+
+  async function loadAndRender() {
+    const guests = await fetchGuests();
+    renderGuests(guests);
+    subscribeRealtime();
+  }
+
+  function subscribeRealtime() {
+    if (channel) channel.unsubscribe();
+    channel = supabase
+      .channel('guests_changes')
+      .on('postgres_changes', { event: '*', schema: 'public', table: 'guests' }, async () => {
+        const guests = await fetchGuests();
+        renderGuests(guests);
+      })
+      .subscribe();
+  }
+
+  function closeAdmin() {
+    adminPanel.classList.remove('open');
+    adminOverlay.classList.remove('open');
+  }
+
+  adminTrigger.addEventListener('click', function () {
+    const pwd = prompt('Введите пароль:');
+    if (pwd === ADMIN_PASSWORD) {
+      openAdmin();
+    } else if (pwd !== null) {
+      alert('Неверный пароль');
+    }
+  });
+
+  adminClose.addEventListener('click', closeAdmin);
+  adminOverlay.addEventListener('click', closeAdmin);
+
+  document.addEventListener('keydown', function (e) {
+    if (e.key === 'Escape') closeAdmin();
+  });
+
+  // --- Export XML ---
+  exportBtn.addEventListener('click', function () {
+    const guests = guestsCache;
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<guests>\n';
+
+    guests.forEach(function (g) {
+      xml += '  <guest>\n';
+      xml += '    <name>' + g.name.replace(/&/g, '&amp;').replace(/</g, '&lt;') + '</name>\n';
+      xml += '    <status>' + g.status + '</status>\n';
+      xml += '    <date>' + g.date + '</date>\n';
+      xml += '  </guest>\n';
+    });
+
+    xml += '</guests>';
+
+    const blob = new Blob([xml], { type: 'application/xml;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'guests.xml';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // --- Export CSV ---
+  exportCsvBtn.addEventListener('click', function () {
+    const guests = guestsCache;
+    if (guests.length === 0) {
+      alert('Нет данных для экспорта');
+      return;
+    }
+    // CSV заголовки
+    var csv = '\uFEFF' + 'Имя,Статус,Дата\n';
+    guests.forEach(function (g) {
+      var name = '"' + g.name.replace(/"/g, '""') + '"';
+      var status = '"' + g.status + '"';
+      var date = '"' + g.date + '"';
+      csv += name + ',' + status + ',' + date + '\n';
+    });
+    var blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
+    a.href = url;
+    a.download = 'guests.csv';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+  });
+
+  // --- Clear Data ---
+  clearBtn.addEventListener('click', async function () {
+    if (!confirm('Очистить все данные о гостях? Это действие необратимо.')) return;
+    const { error } = await supabase.from('guests').delete().neq('id', 0);
+    if (error) {
+      console.error('Delete error:', error);
+      alert('Ошибка при удалении: ' + error.message);
+      return;
+    }
+    guestsCache = [];
+    renderGuests([]);
+  });
+
+  // --- Scroll Reveal (repeatable) ---
+  function isInView(el) {
+    const rect = el.getBoundingClientRect();
+    return rect.top < window.innerHeight - 60 && rect.bottom > 0;
+  }
+
+  const animatedElements = document.querySelectorAll(
+    '.hero-title, .hero-names, .hero-date, .bismillah, .invite-text, .event-card, .section-title, .couple-photo, .countdown-item, .rsvp-form, .rsvp-subtitle'
+  );
+
+  function checkVisibility() {
+    animatedElements.forEach(function (el) {
+      if (isInView(el)) {
+        el.classList.add('visible');
+      } else {
+        el.classList.remove('visible');
+      }
+    });
+  }
+
+  // --- Music Player ---
+  const bgMusic = document.getElementById('bgMusic');
+  const musicToggle = document.getElementById('musicToggle');
+  let isPlaying = false;
+
+  bgMusic.volume = 0.04;
+
+  function loadMusic(src) {
+    bgMusic.src = src;
+    bgMusic.load();
+  }
+
+  function doPlay() {
+    bgMusic.play().then(function () {
+      isPlaying = true;
+      musicToggle.classList.add('playing');
+    }).catch(function (err) {
+      console.log('Play failed:', err);
+    });
+  }
+
+  function stopMusic() {
+    bgMusic.pause();
+    musicToggle.classList.remove('playing');
+    isPlaying = false;
+  }
+
+  function toggleMusic() {
+    if (isPlaying) {
+      stopMusic();
+    } else {
+      doPlay();
+    }
+  }
+
+  musicToggle.addEventListener('click', toggleMusic);
+
+  var audioUrl = window.location.href;
+  var baseDir = audioUrl.substring(0, audioUrl.lastIndexOf('/') + 1);
+  loadMusic(baseDir + 'Music.mp3');
+
+  bgMusic.addEventListener('error', function () {
+    console.log('Audio error:', bgMusic.error ? bgMusic.error.message : 'unknown');
+    musicToggle.classList.add('disabled');
+  });
+
+  bgMusic.addEventListener('canplaythrough', function () {
+    musicToggle.classList.remove('disabled');
+    doPlay();
+  }, { once: true });
+
+  document.addEventListener('click', function firstPlay(e) {
+    if (e.target.closest('.music-toggle') || e.target.closest('.admin-panel') || e.target.closest('.admin-overlay')) return;
+    if (!isPlaying && bgMusic.src) {
+      doPlay();
+    }
+    document.removeEventListener('click', firstPlay);
+  }, { once: true });
+
+  // --- Init ---
+  checkVisibility();
+
+  window.addEventListener('scroll', function () {
+    checkVisibility();
+  });
+
+  window.addEventListener('load', function () {
+    checkVisibility();
+  });
+})();
