@@ -650,15 +650,21 @@ body {
   background: #f7f6f2;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+  display: flex;
+  flex-direction: column;
 }
 
 .admin-panel.open {
-  display: block;
+  display: flex;
 }
 
 .admin-inner {
   padding: 30px;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  overflow: hidden;
 }
 
 .admin-close {
@@ -683,12 +689,28 @@ body {
   color: #2c3126;
   margin-bottom: 20px;
   font-weight: 400;
+  flex-shrink: 0;
+}
+
+.admin-table-wrapper {
+  flex: 1;
+  overflow-y: auto;
+  margin: 0 -30px;
+  padding: 0 30px;
+  margin-bottom: 20px;
 }
 
 .admin-table {
   width: 100%;
   border-collapse: collapse;
-  margin-bottom: 20px;
+  margin-bottom: 0;
+}
+
+.admin-table thead th {
+  position: sticky;
+  top: 0;
+  background: #f7f6f2;
+  z-index: 1;
 }
 
 .admin-table th {
@@ -885,25 +907,3 @@ body {
   .couple-photo img { width: 160px; height: 160px; }
 
   .scroll-hint { display: none; }
-
-  .invite-box { padding: 20px 24px; }
-  .invite-text { font-size: 1.3rem; }
-  .calendar-widget { max-width: 100%; padding: 14px 10px; }
-  .cal-days span { font-size: 0.8rem; }
-
-  .gallery-grid { grid-template-columns: 1fr; gap: 10px; }
-  .gallery-item.tall { grid-row: span 1; }
-}
-
-@media (min-width: 601px) {
-  .gallery-grid {
-    grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 250px;
-  }
-  .gallery-item.wide {
-    grid-column: 1 / -1;
-  }
-  .gallery-item.tall {
-    grid-row: span 2;
-  }
-}
