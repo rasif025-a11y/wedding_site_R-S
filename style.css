@@ -635,10 +635,12 @@ body {
   width: 90%;
   max-width: 600px;
   max-height: 80vh;
+  height: auto;
   background: #f7f6f2;
   border-radius: 8px;
   box-shadow: 0 20px 60px rgba(0,0,0,0.3);
   flex-direction: column;
+  overflow: hidden;
 }
 
 .admin-panel.open {
@@ -650,7 +652,7 @@ body {
   position: relative;
   display: flex;
   flex-direction: column;
-  flex: 1;
+  height: 100%;
   overflow: hidden;
 }
 
@@ -685,6 +687,7 @@ body {
   margin: 0 -30px;
   padding: 0 30px;
   margin-bottom: 20px;
+  min-height: 0;
 }
 
 .admin-table {
@@ -745,6 +748,7 @@ body {
   gap: 10px;
   padding-top: 10px;
   border-top: 1px solid #d5e0c5;
+  flex-shrink: 0;
 }
 
 .admin-count {
