@@ -151,14 +151,41 @@ body {
   line-height: 1.8;
 }
 
+.invite-box-shadow: 0 4px 20px rgba(74,91,58,0.1);
+}
+
+.invite-box {
+  background: #fff;
+  border: 2px solid #d5e0c5;
+  border-radius: 16px;
+  padding: 28px 32px;
+  margin: 20px auto 0;
+  max-width: 580px;
+  box-shadow: 0 4px 20px rgba(74,91,58,0.08);
+  position: relative;
+}
+
+.invite-box::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  border-radius: 18px;
+  background: linear-gradient(135deg, #7a8c5d, #4a5b3a);
+  z-index: -1;
+  opacity: 0.15;
+}
+
 /* Calendar Widget */
 .calendar-widget {
-  max-width: 280px;
+  max-width: 300px;
   margin: 30px auto 0;
   background: #fff;
   border: 1px solid #d5e0c5;
-  border-radius: 10px;
-  padding: 16px 12px;
+  border-radius: 12px;
+  padding: 18px 14px;
   box-shadow: 0 4px 15px rgba(74,91,58,0.08);
   font-family: 'Montserrat', sans-serif;
 }
@@ -167,10 +194,10 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
   font-weight: 600;
   color: #2c3126;
-  font-size: 0.95rem;
+  font-size: 1rem;
 }
 
 .cal-weekdays {
@@ -181,13 +208,13 @@ body {
   text-transform: uppercase;
   color: #888;
   letter-spacing: 0.5px;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 
 .cal-days {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
-  gap: 4px;
+  gap: 6px;
 }
 
 .cal-days span {
@@ -199,6 +226,7 @@ body {
   color: #555;
   border-radius: 50%;
   transition: all 0.2s;
+  font-weight: 500;
 }
 
 .cal-days span:empty {
@@ -212,7 +240,14 @@ body {
   box-shadow: 0 2px 8px rgba(74,91,58,0.4);
 }
 
-.cal-days span:hover:not(:empty):not(.cal-today) {
+.cal-days span.cal-wedding {
+  background: #c0392b;
+  color: #fff;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(192,57,43,0.4);
+}
+
+.cal-days span:hover:not(:empty):not(.cal-today):not(.cal-wedding) {
   background: #f1f3ec;
 }
 
@@ -851,7 +886,9 @@ body {
 
   .scroll-hint { display: none; }
 
-  .calendar-widget { max-width: 100%; padding: 12px 8px; }
+  .invite-box { padding: 20px 24px; }
+  .invite-text { font-size: 1.3rem; }
+  .calendar-widget { max-width: 100%; padding: 14px 10px; }
   .cal-days span { font-size: 0.8rem; }
 
   .gallery-grid { grid-template-columns: 1fr; gap: 10px; }
