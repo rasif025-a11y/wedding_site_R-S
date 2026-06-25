@@ -6,6 +6,13 @@
   const SUPABASE_KEY = 'sb_publishable_Y0X6ecwcRptSaG5RwdsSbg_hK0eZlJP';
   const supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+  // Test connection on load
+  supabase.from('guests').select('count', { count: 'exact', head: true })
+    .then(({ count, error }) => {
+      if (error) console.warn('Supabase connection test failed:', error.message);
+      else console.log('Supabase connected, guests count:', count);
+    });
+
   // --- Countdown Timer ---
   const WEDDING_DATE = new Date('2026-07-31T15:00:00').getTime();
   const daysEl = document.getElementById('days');
@@ -46,6 +53,41 @@
   updateCountdown();
   setInterval(updateCountdown, 1000);
 
+  // --- Calendar Widget ---
+  function renderCalendar() {
+    const container = document.getElementById('calDays');
+    if (!container) return;
+
+    const today = new Date();
+    const wedding = new Date(2026, 6, 31); // July 31, 2026 (month is 0-indexed)
+    const year = 2026;
+    const month = 6; // July
+
+    const firstDay = new Date(year, month, 1).getDay(); // 0=Sun, 1=Mon...
+    const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+    // Adjust for Monday start (1=Mon, 7=Sun)
+    const startOffset = (firstDay + 6) % 7;
+
+    let html = '';
+    // Empty cells before 1st
+    for (let i = 0; i < startOffset; i++) {
+      html += '<span></span>';
+    }
+    // Days
+    for (let d = 1; d <= daysInMonth; d++) {
+      const isToday = today.getFullYear() === year && today.getMonth() === month && today.getDate() === d;
+      const isWedding = d === 31;
+      let cls = '';
+      if (isWedding) cls = 'cal-wedding';
+      else if (isToday) cls = 'cal-today';
+      html += '<span class="' + cls + '">' + d + '</span>';
+    }
+    container.innerHTML = html;
+  }
+
+  renderCalendar();
+
   // --- RSVP Form ---
   const form = document.getElementById('rsvpForm');
   const thanksMsg = document.getElementById('thanksMsg');
@@ -57,8 +99,10 @@
       .insert({ name: data.name, status: status });
     if (error) {
       console.error('Supabase insert error:', error);
-      // fallback to localStorage
+      alert('Ошибка Supabase: ' + error.message + '\nПроверьте консоль (F12)');
       saveGuestLocal(data);
+    } else {
+      console.log('Saved to Supabase:', data.name, status);
     }
   }
 
@@ -88,15 +132,21 @@
   form.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    if (!statusInput.value) {
-      rsvpHint.textContent = 'Пожалуйста, выберите вариант';
+    const nameInput = form.querySelector('input[type="text"]');
+    const name = nameInput.value.trim();
+
+    if (!name) {
+      rsvpHint.textContent = 'Пожалуйста, введите ваше имя';
+      nameInput.focus();
       return;
     }
 
-    const data = {
-      name: form.querySelector('input[type="text"]').value.trim(),
-      status: statusInput.value,
-    };
+    if (!statusInput.value) {
+      rsvpHint.textContent = 'Пожалуйста, выберите вариант ответа';
+      return;
+    }
+
+    const data = { name: name, status: statusInput.value };
 
     saveGuest(data);
     form.reset();
@@ -104,7 +154,75 @@
     rsvpBtns.forEach(function (b) { b.classList.remove('active'); });
     form.style.display = 'none';
     thanksMsg.classList.add('show');
+
+    if (data.status === 'yes') {
+      fireConfetti();
+    }
   });
+
+  // --- Confetti animation ---
+  function fireConfetti() {
+    const canvas = document.createElement('canvas');
+    canvas.style.position = 'fixed';
+    canvas.style.top = '0';
+    canvas.style.left = '0';
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    canvas.style.pointerEvents = 'none';
+    canvas.style.zIndex = '9999';
+    document.body.appendChild(canvas);
+
+    const ctx = canvas.getContext('2d');
+    const W = canvas.width = window.innerWidth;
+    const H = canvas.height = window.innerHeight;
+
+    const pieces = [];
+    const colors = ['#4a5b3a', '#7a8c5d', '#b5c4a3', '#d5e0c5', '#f7f6f2', '#e8d5b7'];
+
+    for (let i = 0; i < 180; i++) {
+      const angle = Math.random() * Math.PI * 2;
+      const speed = Math.random() * 12 + 6;
+      pieces.push({
+        x: W / 2,
+        y: H / 2,
+        r: Math.random() * 5 + 3,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        vx: Math.cos(angle) * speed,
+        vy: Math.sin(angle) * speed - 8,
+        gravity: 0.25,
+        alpha: 1,
+        rotation: Math.random() * 360,
+        rotationSpeed: (Math.random() - 0.5) * 10
+      });
+    }
+
+    function draw() {
+      ctx.clearRect(0, 0, W, H);
+      let alive = 0;
+      pieces.forEach(p => {
+        if (p.alpha > 0) {
+          alive++;
+          p.x += p.vx;
+          p.y += p.vy;
+          p.vy += p.gravity;
+          p.alpha -= 0.006;
+          p.rotation += p.rotationSpeed;
+          ctx.save();
+          ctx.globalAlpha = Math.max(0, p.alpha);
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rotation * Math.PI / 180);
+          ctx.fillStyle = p.color;
+          ctx.beginPath();
+          ctx.arc(0, 0, p.r, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.restore();
+        }
+      });
+      if (alive > 0) requestAnimationFrame(draw);
+      else { canvas.remove(); }
+    }
+    requestAnimationFrame(draw);
+  }
 
   // --- Map Card Click ---
   const mapLink = document.querySelector('.map-link');
